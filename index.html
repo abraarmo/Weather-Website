@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <!-- Importing Search Icon -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <title>Weather App</title>
+</head>
+<body class="body">
+    
+    <main>
+        <div class="mainContainer">
+            <header class="inputContainer">
+                <input class="city-input" placeholder="Enter a City Name" type="text">
+                <button class="search-btn">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </header>
+            <section class="weather-info">
+                <div class="location">
+                    <h4 id="cityName">--</h4>
+                    <img id="weatherIcon" src="assets/assets/weather/clear.svg" alt="weather icon" />
+                </div>
+            
+                <div class="weather-icon">
+            
+                </div>
+                <!-- Creating the widgets -->
+                <div class="weather-widgets">
+                    <div class="widgets">
+                        <img src="assets/assets/weather/temperature-unscreen.gif" alt="" width="50px" height="50px">
+                        <p class="tempBox">Temp: --°C</p>
+                    </div>
+                    <div class="widgets">
+                        <img src="assets/assets/weather/drizzle-unscreen.gif" alt="" width="50px" height="50px">
+                        <p class="rainBox">Rain: -- mm</p>
+                    </div>
+                    <div class="widgets wind">
+                        <img src="assets/assets/weather/wind-unscreen.gif" alt="" width="50px" height="50px">
+                        <p class="windBox">Wind: -- km/h</p>
+                    </div>
+                    <div class="widgets humidity">
+                        <img src="assets/assets/weather/humidity-unscreen.gif" alt="" width="50px" height="50px">
+                        <p class="humidityBox">Humidity: -- %</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+    
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
