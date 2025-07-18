@@ -144,3 +144,53 @@
 
 
 
+@media (min-width: 768px) {
+    .mainContainer {
+        width: 500px;
+        padding: 30px;
+    }
+
+    .weather-icon span {
+        font-size: 72px;
+    }
+
+    .weather-details {
+        font-size: 20px;
+    }
+
+    .widgets {
+        font-size: 17px;
+        padding: 14px;
+    }
+
+    .city-input {
+        font-size: 16px;
+        padding: 12px 48px 12px 20px;
+    }
+
+    #cityName {
+        font-size: 24px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .mainContainer {
+        width: 350px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        height: 600px;
+    }
+
+    .weather-details {
+        font-size: 22px;
+    }
+
+    .widgets {
+        font-size: 18px;
+        margin-top: -10px;
+    }
+
+    .city-input {
+        font-size: 18px;
+    }
+}
