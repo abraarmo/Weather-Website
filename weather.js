@@ -1,5 +1,3 @@
-
-// Get the input and display the elements form the page
 const input = document.querySelector(".city-input");
 const btn = document.querySelector(".search-btn");
 const tempBox = document.querySelector(".tempBox");
@@ -8,85 +6,85 @@ const windBox = document.querySelector(".windBox");
 const humidityBox = document.querySelector(".humidityBox");
 const weatherIcon = document.getElementById("weatherIcon");
 const cityName = document.getElementById("cityName");
+const toggleBtn = document.querySelector(".mbtn");
+const mainContainer = document.querySelector(".mainContainer");
 
+// Map weathercode to your own icon paths
+function mapWeatherCodeToIcon(code) {
+  if (code === 0) return "assets/assets/weather/clear.svg";
+  if ([1, 2, 3].includes(code)) return "assets/assets/weather/clouds.svg";
+  if ([45, 48].includes(code)) return "assets/assets/weather/atmosphere.svg";
+  if ([51, 53, 55].includes(code)) return "assets/assets/weather/drizzle.svg";
+  if ([61, 63, 65].includes(code)) return "assets/assets/weather/rain.svg";
+  if ([71, 73, 75].includes(code)) return "assets/assets/weather/snow.svg";
+  if ([95, 96, 99].includes(code))
+    return "assets/assets/weather/thunderstorm.svg";
+  return "assets/assets/weather/clouds.svg";
+}
 
-// Event Listner
 btn.addEventListener("click", () => {
-    // console.log("Button clicked");
   const city = input.value.trim();
-  if (city === "") {
-    return;
-  }
+  if (city === "") return;
 
-  
-// API Key Below
-  const apiKey = "4459747ec2880509d41d7defa392f531";
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${city}`;
 
-  
-  fetch(url)
-//   Below changing data to json and reading it
-    .then((res) => res.json()) 
-    .then((data) => {
+  fetch(geoUrl)
+    .then((res) => res.json())
+    .then((geoData) => {
+      if (!geoData.results || geoData.results.length === 0) {
+        cityName.textContent = "City Not Found";
+        return;
+      }
 
-    // Naming the data appropriatley
-      const temp = data.main.temp;
-      const wind = data.wind.speed;
-      const condition = data.weather[0].main.toLowerCase();
-      const rain = data.rain ? data.rain["1h"] || data.rain["3h"] : 0;
-      const humidity = data.main.humidity;
+      const { latitude, longitude, name } = geoData.results[0];
+      cityName.textContent = name;
 
+      const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&daily=temperature_2m_max,weathercode&hourly=relative_humidity_2m,precipitation&timezone=auto`;
 
+      fetch(weatherUrl)
+        .then((res) => res.json())
+        .then((data) => {
+          // Main 4 widgets
+          const current = data.current_weather;
+          const humidity = data.hourly.relative_humidity_2m[0];
+          const rain = data.hourly.precipitation[0];
+          const iconPath = mapWeatherCodeToIcon(current.weathercode);
 
-    //   Changing the text content of the fields with the relevant element
-      tempBox.textContent = `Temp: ${temp}°C`;
-      windBox.textContent = `Wind: ${wind} km/h`;
-      rainBox.textContent = `Rain: ${rain} mm`;
-      cityName.textContent = data.name;
-      humidityBox.textContent = `Humidity: ${humidity}%`;
+          tempBox.textContent = `Temp: ${current.temperature}°C`;
+          windBox.textContent = `Wind: ${current.windspeed} km/h`;
+          humidityBox.textContent = `Humidity: ${humidity}%`;
+          rainBox.textContent = `Rain: ${rain} mm`;
+          weatherIcon.src = iconPath;
 
+          // 7-day forecast
+          const forecast = data.daily;
+          for (let i = 0; i < 7; i++) {
+            const el = document.querySelector(`.day${i + 1}`);
+            if (!el) continue;
 
-    //   Used ChatGPT for this section
-      const rawCondition = data.weather[0].main.toLowerCase();
-      const description = data.weather[0].description.toLowerCase(); // more precise
+            const date = new Date(forecast.time[i]);
+            const dayName = date.toLocaleDateString("en-US", {
+              weekday: "short",
+            });
+            const dayTemp = Math.round(forecast.temperature_2m_max[i]);
+            const dayIcon = mapWeatherCodeToIcon(forecast.weathercode[i]);
 
-      let iconFile = "clouds.svg"; // default
-
-    //   Making sure that the description form the json file can use based on the images i have. prevents something like slightly cloudy returning a broken image but instead getting it to use cloudy.svg
-      if (description.includes("clear")) iconFile = "clear.svg";
-      else if (description.includes("cloud")) iconFile = "clouds.svg";
-      else if (description.includes("rain")) iconFile = "rain.svg";
-      else if (description.includes("drizzle")) iconFile = "drizzle.svg";
-      else if (description.includes("thunderstorm"))
-        iconFile = "thunderstorm.svg";
-      else if (description.includes("snow")) iconFile = "snow.svg";
-      else if (description.includes("mist") || description.includes("fog"))
-        iconFile = "atmosphere.svg";
-
-      document.getElementById(
-        "weatherIcon"
-      ).src = `assets/assets/weather/${iconFile}`;
-    })
-
-    //   End of ChatGPT for this section
-
-    // What happens if theres a error
-    .catch((err) => {
-      tempBox.textContent = "N/A";
-      rainBox.textContent = "N/A";
-      windBox.textContent = "N/A";
-      weatherIcon.textContent = "error";
-      cityName.textContent = "City Not Found";
-      humidityBox.textContent = "N/A"
+            el.querySelector(".day-name").textContent = dayName;
+            el.querySelector(".day-temp").textContent = `${dayTemp}°C`;
+            el.querySelector(".day-icon").src = dayIcon;
+          }
+        });
     });
 });
 
-
-// Getting a keydown to also act as an event listner
-// ChatGPT use
+// Allow "Enter" key to trigger search
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     btn.click();
   }
 });
-// End of ChatGPT use
+
+// Toggle 7-day forecast visibility
+toggleBtn.addEventListener("click", () => {
+  mainContainer.classList.toggle("expanded");
+});

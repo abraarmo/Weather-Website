@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="weather.css">
-    <!-- Importing Search Icon -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="weather.css" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <title>Weather App</title>
 </head>
+
 <body class="body">
-    
+
     <main>
         <div class="mainContainer">
             <header class="inputContainer">
@@ -18,39 +19,80 @@
                     <span class="material-symbols-outlined">search</span>
                 </button>
             </header>
+
             <section class="weather">
                 <div class="location">
                     <h4 id="cityName"></h4>
                     <img id="weatherIcon" src="assets/assets/weather/clear.svg" alt="weather icon" />
                 </div>
-            
+
                 <div class="weather-icon"></div>
-                <!-- =================================================================================================== -->
-                <!-- ==================================== Widgets ====================================================== -->
-                <div class="weather-widgets">
-                    <div class="widgets">
-                        <img src="assets/assets/weather/temperature-unscreen.gif" alt="" width="50px" height="50px">
-                        <p class="tempBox">Temp: --°C</p>
+
+                <div class="widgets-wrapper">
+                    <div class="weather-widgets">
+                        <div class="widgets">
+                            <img src="assets/assets/weather/temperature-unscreen.gif" alt="" width="50px" height="50px">
+                            <p class="tempBox">Temp: --°C</p>
+                        </div>
+                        <div class="widgets">
+                            <img src="assets/assets/weather/drizzle-unscreen.gif" alt="" width="50px" height="50px">
+                            <p class="rainBox">Rain: -- mm</p>
+                        </div>
+                        <div class="widgets">
+                            <img src="assets/assets/weather/wind-unscreen.gif" alt="" width="50px" height="50px">
+                            <p class="windBox">Wind: -- km/h</p>
+                        </div>
+                        <div class="widgets">
+                            <img src="assets/assets/weather/humidity-unscreen.gif" alt="" width="50px" height="50px">
+                            <p class="humidityBox">Humidity: -- %</p>
+                        </div>
                     </div>
-                    <div class="widgets">
-                        <img src="assets/assets/weather/drizzle-unscreen.gif" alt="" width="50px" height="50px">
-                        <p class="rainBox">Rain: -- mm</p>
-                    </div>
-                    <div class="widgets">
-                        <img src="assets/assets/weather/wind-unscreen.gif" alt="" width="50px" height="50px">
-                        <p class="windBox">Wind: -- km/h</p>
-                    </div>
-                    <div class="widgets">
-                        <img src="assets/assets/weather/humidity-unscreen.gif" alt="" width="50px" height="50px">
-                        <p class="humidityBox">Humidity: -- %</p>
-                    </div>
+
+                    <section class="media-scroller snaps-inline">
+                        <div class="day1 mediaElement">
+                            <h5 class="day-name"></h5>
+                            <img class="day-icon" src="" alt="">
+                            <p class="day-temp">--</p>
+                        </div>
+                        <div class="day2 mediaElement">
+                            <h5 class="day-name"></h5>
+                            <img class="day-icon" src="" alt="">
+                            <p class="day-temp">--</p>
+                        </div>
+                        <div class="day3 mediaElement">
+                            <h5 class="day-name"></h5>
+                            <img class="day-icon" src="" alt="">
+                            <p class="day-temp">--</p>
+                        </div>
+                        <div class="day4 mediaElement">
+                            <h5 class="day-name"></h5>
+                            <img class="day-icon" src="" alt="">
+                            <p class="day-temp">--</p>
+                        </div>
+                        <div class="day5 mediaElement">
+                            <h5 class="day-name"></h5>
+                            <img class="day-icon" src="" alt="">
+                            <p class="day-temp">--</p>
+                        </div>
+                        <div class="day6 mediaElement">
+                            <h5 class="day-name"></h5>
+                            <img class="day-icon" src="" alt="">
+                            <p class="day-temp">--</p>
+                        </div>
+                        <div class="day7 mediaElement">
+                            <h5 class="day-name"></h5>
+                            <img class="day-icon" src="" alt="">
+                            <p class="day-temp">--</p>
+                        </div>
+                    </section>
+                    
                 </div>
+                <button class="mbtn">></button>
             </section>
         </div>
-        
-    
     </main>
 
     <script src="weather.js"></script>
 </body>
+
 </html>

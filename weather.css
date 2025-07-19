@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
+@import "https://unpkg.com/open-props";
+@import "https://unpkg.com/open-props/normalize.min.css";
+
 * {
     margin: 0;
     padding: 0;
@@ -36,14 +39,18 @@
 
 
 .mainContainer{
-    width: 300px;
-    height: auto;
+    width: 370px;
+    height: 550px;
     z-index: 1;
     background: linear-gradient(to top, rgb(0,0,0,0.15), rgb(255,255,255,0.15));
     border-radius: 10px;
     backdrop-filter: blur(100px);
     padding: 20px;
     margin-bottom: 20px;
+    position: relative;
+    overflow-x: auto;
+    overflow: hidden;
+    transition: width 1s ease;
 }
 
 
@@ -144,7 +151,7 @@
 
 
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
     .mainContainer {
         width: 500px;
         padding: 30px;
@@ -175,10 +182,10 @@
 
 @media (min-width: 1024px) {
     .mainContainer {
-        width: 350px;
+        width: 400px;
         margin-top: 20px;
         margin-bottom: 20px;
-        height: 600px;
+        height: 700px;
     }
 
     .weather-details {
@@ -193,4 +200,94 @@
     .city-input {
         font-size: 18px;
     }
+} */
+
+
+.mbtn{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    background-color: transparent;
+    backdrop-filter: blur(5px);
+    border: none;
+    border-radius: 10px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    cursor: pointer;
 }
+
+
+.media-scroller{
+    display: grid;
+    grid-auto-flow: column;  /* For every element it creates a new column */
+    grid-auto-columns: 30%; /* States how wide each column is gonna be */
+    gap: var(--size-3);
+    overflow-x: auto;
+    overscroll-behavior-inline: contain; /* mkaing sure that the scrolling only affects the scroll elements and not potential the whole page */    
+    opacity: 0;
+    width: 0;
+    transition: opacity 1s ease, width 1s ease;
+    overflow: hidden;
+    margin-top: 20px;
+    position: relative;
+    z-index: 0;
+    pointer-events: auto;
+    overflow-x: auto;
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE 10+ */
+}
+
+.media-scroller::-webkit-scrollbar {
+    display: none;
+}
+
+.mainContainer.expanded {
+    width: 850px;
+    /* or however wide it needs to fit widgets + forecast */
+}
+
+
+.widgets-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    /* space between widgets and media-scroller */
+}
+
+
+
+.mediaElement{
+    padding: var(--size-3);
+    background: var(--surface-2);
+    border-radius: 10px;
+    display: grid;
+    gap: var(--size-3);
+    grid-template-rows: min-content;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+
+}
+
+.mediaElement > img{
+    inline-size: 30%;
+}
+
+.snaps-inline{
+    scroll-snap-type: inline mandatory;
+    scroll-padding-inline: var(--size-2);
+}
+
+.snaps-inline > * {
+    scroll-snap-align: start;
+}
+
+.mainContainer.expanded .media-scroller {
+    width: 480px;
+    opacity: 1;
+    overflow-x: scroll;
+}
+
+
