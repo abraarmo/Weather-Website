@@ -69,10 +69,15 @@ btn.addEventListener("click", () => {
             const dayTemp = Math.round(forecast.temperature_2m_max[i]);
             const dayIcon = mapWeatherCodeToIcon(forecast.weathercode[i]);
 
-            el.querySelector(".day-name").textContent = dayName;
-            el.querySelector(".day-temp").textContent = `${dayTemp}°C`;
-            el.querySelector(".day-icon").src = dayIcon;
+            const nameEl = el.querySelector(".day-name");
+            const tempEl = el.querySelector(".day-temp");
+            const iconEl = el.querySelector(".day-icon");
+
+            if (nameEl) nameEl.textContent = dayName;
+            if (tempEl) tempEl.textContent = `${dayTemp}°C`;
+            if (iconEl) iconEl.src = dayIcon;
           }
+
         });
     });
 });
