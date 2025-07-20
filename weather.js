@@ -24,7 +24,8 @@ function mapWeatherCodeToIcon(code) {
 
 btn.addEventListener("click", () => {
   const city = input.value.trim();
-  if (city === "") return;
+  if (city === "") return;// Checks for empty search bar, if so then return immediatly 
+  
 
   const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${city}`;
 
@@ -34,7 +35,8 @@ btn.addEventListener("click", () => {
       if (!geoData.results || geoData.results.length === 0) {
         cityName.textContent = "City Not Found";
         return;
-      }
+      } // if the geodata results dont exist or the length of the geodata is 0 then print city not ofund and exit function
+
 
       const { latitude, longitude, name } = geoData.results[0];
       cityName.textContent = name;
